@@ -72,7 +72,6 @@ while True:
         deliveriesProcessed += 1
 
 
-print("test")
 print(inventory)
 print(totalFailedAttempts)
 print(deliveriesProcessed)
