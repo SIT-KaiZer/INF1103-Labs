@@ -1,6 +1,7 @@
 inventory = 0
-failedAttempts = 0
+totalFailedAttempts = 0
 deliveriesProcessed = 0
+tax = 0
 
 # while status:
 #     stock_quantity = input("Enter the inventory amount: ")
@@ -48,19 +49,26 @@ def get_valid_input():
         
 def process_delivery(current_total, new_quantity):
     current_total += new_quantity
-    return current_total, True
+    return current_total
 
+def calculate_tax(amount):
+    tax_rate = 0.10 
+    return amount * tax_rate
     
 while True: 
     stockQuantity, newFailedAttempts = get_valid_input()
-    failedAttempts += newFailedAttempts
+    totalFailedAttempts += newFailedAttempts
     if stockQuantity == "quit":
         break
 
     elif stockQuantity is not None:
-        inventory, success = process_delivery(inventory, stockQuantity)
-        print(inventory)
-        if success:
-            deliveriesProcessed += 1
+        inventory = process_delivery(inventory, stockQuantity)
+        tax = calculate_tax(stockQuantity)
+        deliveriesProcessed += 1
+
 
 print("test")
+print(inventory)
+print(totalFailedAttempts)
+print(deliveriesProcessed)
+print(tax)
