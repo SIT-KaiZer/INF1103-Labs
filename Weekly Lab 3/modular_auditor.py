@@ -34,6 +34,11 @@ def get_valid_input():
         if stockQuantity.lower() == "quit":
             return "quit", newFailedAttempts
 
+        elif stockQuantity is None or stockQuantity.strip() == "":
+            print("Invalid input. Please enter a valid number.")
+            newFailedAttempts += 1
+            continue
+
         elif stockQuantity[0] == '-' and stockQuantity[1:].isdigit():
                     print("Inventory cannot be negative. Please enter a valid amount.")
                     newFailedAttempts += 1
