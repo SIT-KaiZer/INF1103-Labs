@@ -26,44 +26,41 @@ deliveriesProcessed = 0
         #     break
         
 def get_valid_input():
+    newFailedAttempts = 0
     while True:
         stockQuantity = input("Enter the inventory amount to deliver: ")
 
         if stockQuantity.lower() == "quit":
-            return "quit"
-
-        elif not stockQuantity.isdigit():
-            print("Invalid input. Please enter a valid number.")
-            continue
+            return "quit", newFailedAttempts
 
         elif stockQuantity[0] == '-' and stockQuantity[1:].isdigit():
-            print("Inventory cannot be negative. Please enter a valid amount.")
+                    print("Inventory cannot be negative. Please enter a valid amount.")
+                    newFailedAttempts += 1
+                    continue
+
+        elif not stockQuantity.isdigit():
+            print("Invalid input. No words please. Please enter a valid number.")
+            newFailedAttempts += 1
             continue
 
         else:
-            return int(stockQuantity)
+            return int(stockQuantity), newFailedAttempts
         
 def process_delivery(current_total, new_quantity):
-    if current_total + new_quantity > 500:
-        print("Inventory cannot exceed 500. Please enter a valid amount.")
-        return current_total, False
-    else:
-        current_total += new_quantity
-        return current_total, True
-
-    
+    current_total += new_quantity
+    return current_total, True
 
     
 while True: 
-    stockQuantity = get_valid_input()
-    
+    stockQuantity, newFailedAttempts = get_valid_input()
+    failedAttempts += newFailedAttempts
     if stockQuantity == "quit":
         break
 
     elif stockQuantity is not None:
         inventory, success = process_delivery(inventory, stockQuantity)
+        print(inventory)
         if success:
             deliveriesProcessed += 1
 
-    
-    
+print("test")
