@@ -1,14 +1,11 @@
 def load_orders():
-    print("load orders called")
-
     with open(".\Weekly Lab 4\inventory.txt", "a+") as file:
         file.seek(0)
         orders = file.read()
         print(f"Current orders:\n{orders}")
-        print("================================")
+        print("================================\n")
 
 def get_valid_input():
-    print("get valid input called")
     while True:
         newOrder = input("Enter Product Name (or type 'quit' to exit): ")
 
@@ -38,7 +35,6 @@ def get_valid_input():
                     return newOrder, int(newOrderQuantity)
 
 
-
 def save_orders(newOrderItem, newOrderQuantity):
     print("save orders called")
     with open(".\Weekly Lab 4\inventory.txt", "a+") as file:
@@ -57,22 +53,26 @@ def save_orders(newOrderItem, newOrderQuantity):
         newOrder = f"{newOrderNumber}, {newOrderItem}, {newOrderQuantity}\n"
         with open(".\Weekly Lab 4\inventory.txt", "a") as file:
             file.write(newOrder)
+        print("Order saved successfully.")
         
-        
-
-        print(newOrder)
-        print(input("pause"))
 
 
 def generate_report():
-    print("generate report called")
+    with open(".\Weekly Lab 4\inventory.txt", "r") as file:
+        orders = file.readlines()
+        print(f"\nInventory Report")
+        print("----------------")
+        for order in orders:
+            order = [item.strip() for item in order.strip().split(",")]
+            order_number = order[0]
+            product_name = order[1]
+            quantity = order[2]
+            print(f"Order Number: {order_number}, Product Name: {product_name}, Quantity: {quantity}")
 
 
 
-
-
+load_orders()
 while True:
-    load_orders()
     newOrderToAdd =get_valid_input()
     if newOrderToAdd == "quit":
         break
