@@ -50,7 +50,7 @@ def save_orders(newOrderItem, newOrderQuantity):
                 highestOrderNumber = order_number
 
         newOrderNumber = highestOrderNumber + 1
-        newOrder = f"{newOrderNumber}, {newOrderItem}, {newOrderQuantity}\n"
+        newOrder = f"\n{newOrderNumber}, {newOrderItem}, {newOrderQuantity}"
         with open("inventory.txt", "a") as file:
             file.write(newOrder)
         print("Order saved successfully.")
