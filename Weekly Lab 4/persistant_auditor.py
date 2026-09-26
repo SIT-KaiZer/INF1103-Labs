@@ -1,5 +1,5 @@
 def load_orders():
-    with open(".\Weekly Lab 4\inventory.txt", "a+") as file:
+    with open("inventory.txt", "a+") as file:
         file.seek(0)
         orders = file.read()
         print(f"Current orders:\n{orders}")
@@ -37,7 +37,7 @@ def get_valid_input():
 
 def save_orders(newOrderItem, newOrderQuantity):
     print("save orders called")
-    with open(".\Weekly Lab 4\inventory.txt", "a+") as file:
+    with open("inventory.txt", "a+") as file:
         file.seek(0)
         orders = file.readlines()
         highestOrderNumber = 0
@@ -51,14 +51,14 @@ def save_orders(newOrderItem, newOrderQuantity):
 
         newOrderNumber = highestOrderNumber + 1
         newOrder = f"{newOrderNumber}, {newOrderItem}, {newOrderQuantity}\n"
-        with open(".\Weekly Lab 4\inventory.txt", "a") as file:
+        with open("inventory.txt", "a") as file:
             file.write(newOrder)
         print("Order saved successfully.")
         
 
 
 def generate_report():
-    with open(".\Weekly Lab 4\inventory.txt", "r") as file:
+    with open("inventory.txt", "r") as file:
         orders = file.readlines()
         print(f"\nInventory Report")
         print("----------------")
