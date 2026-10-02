@@ -2,6 +2,20 @@ import os
 import json
 
 
+def display_all():
+    with open("inventory.json", "r", encoding="utf-8") as file:
+        try:
+            inventory = json.load(file)
+            if not inventory:
+                print("No products in the inventory.")
+                return
+            print("\n-----Current Inventory-----")
+            for product in inventory:
+                print(f"Product ID: {product['ProductID']}, Name: {product['Name']}, Price: ${product['Price']:.2f}, Stock: {product['Stock']}")
+            print("--------------------")
+        except json.JSONDecodeError:
+            print("Error decoding JSON from inventory.json. The file may be corrupted.")
+
 def add_product():
     return
 
@@ -11,8 +25,9 @@ def update_stock():
 def search_product():
     return
 
-def display_all():
+def save_inventory():
     return
+
 
 def load_inventory():
     if not os.path.exists("inventory.json"):
@@ -33,8 +48,7 @@ def load_inventory():
                 print("Error decoding JSON from inventory.json. The file may be corrupted.")       
     return
 
-def save_inventory():
-    return
+
 
 def main_menu():
     while True:
