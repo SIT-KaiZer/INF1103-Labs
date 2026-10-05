@@ -30,7 +30,7 @@ def add_product():
                 if newProductName is None:
                     print("Invalid input. Please enter a valid product name.")
                     continue
-                elif newProductName.replace(" ","").alpha():
+                elif not newProductName.replace(" ","").isalpha():
                     print("Invalid input. Please enter a valid product name.")
                     continue
                 else:
@@ -52,12 +52,13 @@ def add_product():
                                     print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
                                     continue
                                 else:
+                                    newProductID = str(newProductID)
                                     newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
                                     return newOrder
             
             
     elif not len(newOrders) == 0:
-        latestProductID = newOrders[-1][newProductID]
+        latestProductID = newOrders[-1]["ProductID"]
         latestProductID = latestProductID.replace('P', "")
         newProductID = int(latestProductID) + 1
         while True:
@@ -65,7 +66,7 @@ def add_product():
                         if newProductName is None:
                             print("Invalid input. Please enter a valid product name.")
                             continue
-                        elif newProductName.replace(" ","").alpha():
+                        elif not newProductName.replace(" ","").isalpha():
                             print("Invalid input. Please enter a valid product name.")
                             continue
                         else:
@@ -87,6 +88,7 @@ def add_product():
                                             print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
                                             continue
                                         else:
+                                            newProductID = str(newProductID)
                                             newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
                                             return newOrder
 
