@@ -24,7 +24,6 @@ def add_product():
             latestProductID = inventory[-1]["ProductID"]
             latestProductID = latestProductID.replace('P', "")
             newProductID = int(latestProductID) + 1
-            # newProductID = f"P{newProductID}"
             while True:
                 newProductName = input("Product Name:")
                 if newProductName is None:
@@ -52,7 +51,7 @@ def add_product():
                                     print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
                                     continue
                                 else:
-                                    newProductID = str(newProductID)
+                                    newProductID = str(newProductID).zfill(3)
                                     newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
                                     return newOrder
             
@@ -88,11 +87,11 @@ def add_product():
                                             print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
                                             continue
                                         else:
-                                            newProductID = str(newProductID)
+                                            newProductID = str(newProductID).zfill(3)
                                             newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
                                             return newOrder
 
-        
+
     
 
 def update_stock():
