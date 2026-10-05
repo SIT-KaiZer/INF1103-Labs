@@ -93,7 +93,32 @@ def add_product():
     
 
 def update_stock():
-    return
+    print("Update Stock")
+    updatingID = input("Enter Product ID you wish to update:")
+    for item in inventory:
+        if item["Product ID"] == updatingID:
+            print("Product Found")
+            print("Name:" + item["Name"])
+            print("Current Stock:" + item["Stock"])
+            while True:
+                newStockValue = input("Please enter new stock value:")
+                if newStockValue is None:
+                        print("Invalid input. Please enter a valid Stock.")
+                        continue
+                elif not newStockValue.isdigit():
+                    print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
+                    continue
+                elif newStockValue == item["Stock"]:
+                    print("Invalid Input. New stock value can't be the same as previous stock value")
+                    continue
+                else:
+                    item["Stock"] = newStockValue
+                    return
+        else:
+            print("Product not found, Returning to main menu")
+            return
+
+
 
 def search_product():
     return
