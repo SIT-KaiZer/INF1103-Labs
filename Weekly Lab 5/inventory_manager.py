@@ -7,6 +7,8 @@ def display_all():
         print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
 
 def add_product():
+    global nothingToSave
+    nothingToSave = False
     if len(inventory) == 0:
         print("Add a new product")
         latestProductID = inventory[-1]["ProductID"]
@@ -83,6 +85,8 @@ def add_product():
     
 
 def update_stock():
+    global nothingToSave
+    nothingToSave = False
     print("Update Stock")
     updatingID = input("Enter Product ID you wish to update:")
     found = False
@@ -115,16 +119,17 @@ def update_stock():
         print("Returning to Main Menu")
         return
         
-    
-    
-
-
 
 def search_product():
     return
 
 def save_inventory():
-    return
+    with open("inventoy.json","w",encoding="utf-8") as file:
+        file.write(inventory)
+        print("Inventory Successfully saved to inventory.json")
+        global nothingToSave
+        nothingToSave = True
+
 
 
 def load_inventory():
@@ -177,8 +182,13 @@ def main_menu():
         elif choice == "5":
             save_inventory()
         elif choice == "6":
-            print("Exiting the program.")
-            break
+            if nothingToSave == False:
+                print("Saving inventory before exit...")
+                save_inventory()
+                break
+            else:
+                print("Exiting the program.")
+                break
         else:
             print("Invalid choice. Please enter a number between 1 and 6.")
 
@@ -187,4 +197,5 @@ print("==========================")
 print("INVENTORY MANAGEMENT SYSTEM")
 print("==========================")
 inventory = load_inventory()
+nothingToSave = True
 main_menu()
