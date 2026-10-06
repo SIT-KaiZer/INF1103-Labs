@@ -3,12 +3,14 @@ import json
 
 
 def display_all():
+    print("Current Inventory:")
+    print("------------------------------------------------------")
     for item in inventory:
         print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
+    print("------------------------------------------------------")
 
 def add_product():
     global nothingToSave
-    nothingToSave = False
     if len(inventory) == 0:
         print("Add a new product")
         latestProductID = inventory[-1]["ProductID"]
@@ -43,6 +45,7 @@ def add_product():
                             else:
                                 newProductID = str(newProductID).zfill(3)
                                 newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
+                                nothingToSave = False
                                 return newOrder
             
             
@@ -79,6 +82,7 @@ def add_product():
                                         else:
                                             newProductID = str(newProductID).zfill(3)
                                             newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
+                                            nothingToSave = False
                                             return newOrder
 
 
@@ -86,7 +90,6 @@ def add_product():
 
 def update_stock():
     global nothingToSave
-    nothingToSave = False
     print("Update Stock")
     updatingID = input("Enter Product ID you wish to update:")
     found = False
@@ -112,6 +115,7 @@ def update_stock():
                     continue
                 else:
                     item["Stock"] = int(newStockValue)
+                    nothingToSave = False
                     print("Stock updated successfully!")
                     return
     if found == False:
@@ -121,7 +125,22 @@ def update_stock():
         
 
 def search_product():
-    return
+    print("Search for product")
+    searchingID = input("ProductID:")
+    found = False
+    for item in inventory:
+        if item["ProductID"] == searchingID:
+            print("Product Found")
+            found = True
+            print("ID:" + item["ProductID"])
+            print("Name:" + item["Name"])
+            print("Price:" + str(item["Price"]))
+            print("Current Stock:" + str(item["Stock"]))
+            
+    if found == False:
+        print("Product not found")
+        print("Returning to Main Menu")
+        return
 
 def save_inventory():
     with open("inventoy.json","w",encoding="utf-8") as file:
@@ -147,13 +166,9 @@ def load_inventory():
                 else:
                     print("Inventory.json found")
                     print("Inventory loaded successfully.")
-                    print(inventory)
                     return(inventory)
             except json.JSONDecodeError:
                 print("Error decoding JSON from inventory.json. The file may be corrupted.")    
-
-    
-
 
 def main_menu():
 
