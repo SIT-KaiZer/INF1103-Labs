@@ -5,17 +5,18 @@ import json
 def display_all():
     print("Current Inventory:")
     print("------------------------------------------------------")
-    for item in inventory:
-        print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
+    if len(inventory) == 0:
+        print("Inventory is empty.")
+    else:
+        for item in inventory:
+            print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
     print("------------------------------------------------------")
 
 def add_product():
     global nothingToSave
     if len(inventory) == 0:
         print("Add a new product")
-        latestProductID = inventory[-1]["ProductID"]
-        latestProductID = latestProductID.replace('P', "")
-        newProductID = int(latestProductID) + 1
+        newProductID = int(1)
         while True:
             newProductName = input("Product Name:")
             if newProductName is None:
@@ -143,10 +144,20 @@ def search_product():
         return
 
 def save_inventory():
-    with open("inventoy.json","w",encoding="utf-8") as file:
-        file.write(inventory)
-        print("Inventory Successfully saved to inventory.json")
-        global nothingToSave
+    global nothingToSave
+    with open("inventory.json", "w") as file:
+        file.write("[\n")
+
+        for i, item in enumerate(inventory):
+            file.write(json.dumps(item))
+
+            if i < len(inventory) - 1:
+                file.write(",")
+
+            file.write("\n")
+
+        file.write("]")
+        print("Inventory has been saved!")
         nothingToSave = True
 
 
@@ -163,12 +174,15 @@ def load_inventory():
                 inventory = json.load(file)
                 if not inventory:
                     print("inventory.json is empty. No products to load.")
+                    return(inventory)
                 else:
                     print("Inventory.json found")
                     print("Inventory loaded successfully.")
                     return(inventory)
             except json.JSONDecodeError:
-                print("Error decoding JSON from inventory.json. The file may be corrupted.")    
+                print("Error decoding JSON from inventory.json. The file may be corrupted.")
+                inventory = []
+                return(inventory)
 
 def main_menu():
 
