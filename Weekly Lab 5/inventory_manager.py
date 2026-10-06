@@ -3,18 +3,8 @@ import json
 
 
 def display_all():
-    with open("inventory.json", "r", encoding="utf-8") as file:
-        try:
-            inventory = json.load(file)
-            if not inventory:
-                print("No products in the inventory.")
-                return
-            print("\n\n-----Current Inventory-----")
-            for product in inventory:
-                print(f"Product ID: {product['ProductID']}, Name: {product['Name']}, Price: ${product['Price']:.2f}, Stock: {product['Stock']}")
-            print("--------------------\n")
-        except json.JSONDecodeError:
-            print("Error decoding JSON from inventory.json. The file may be corrupted.")
+    for item in inventory:
+        print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
 
 def add_product():
     if len(inventory) == 0:
@@ -95,28 +85,38 @@ def add_product():
 def update_stock():
     print("Update Stock")
     updatingID = input("Enter Product ID you wish to update:")
+    found = False
+
     for item in inventory:
-        if item["Product ID"] == updatingID:
+        if item["ProductID"] == updatingID:
             print("Product Found")
+            found = True
             print("Name:" + item["Name"])
-            print("Current Stock:" + item["Stock"])
+            print("Current Stock:" + str(item["Stock"]))
             while True:
                 newStockValue = input("Please enter new stock value:")
+                
                 if newStockValue is None:
                         print("Invalid input. Please enter a valid Stock.")
                         continue
                 elif not newStockValue.isdigit():
                     print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
                     continue
-                elif newStockValue == item["Stock"]:
+                
+                elif newStockValue == str(item["Stock"]):
                     print("Invalid Input. New stock value can't be the same as previous stock value")
                     continue
                 else:
-                    item["Stock"] = newStockValue
+                    item["Stock"] = int(newStockValue)
+                    print("Stock updated successfully!")
                     return
-        else:
-            print("Product not found, Returning to main menu")
-            return
+    if found == False:
+        print("Product not found")
+        print("Returning to Main Menu")
+        return
+        
+    
+    
 
 
 
@@ -145,8 +145,9 @@ def load_inventory():
                     print(inventory)
                     return(inventory)
             except json.JSONDecodeError:
-                print("Error decoding JSON from inventory.json. The file may be corrupted.")       
-    return
+                print("Error decoding JSON from inventory.json. The file may be corrupted.")    
+
+    
 
 
 def main_menu():
