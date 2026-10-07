@@ -45,7 +45,7 @@ def add_product():
                                 continue
                             else:
                                 newProductID = str(newProductID).zfill(3)
-                                newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
+                                newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":float(newPrice),"Stock":int(newStockQuantity)}
                                 nothingToSave = False
                                 return newOrder
             
@@ -82,7 +82,7 @@ def add_product():
                                             continue
                                         else:
                                             newProductID = str(newProductID).zfill(3)
-                                            newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":newPrice,"Stock":newStockQuantity}
+                                            newOrder = {"ProductID":"P"+newProductID,"Name":newProductName,"Price":float(newPrice),"Stock":int(newStockQuantity)}
                                             nothingToSave = False
                                             return newOrder
 
@@ -203,7 +203,8 @@ def main_menu():
             newOrder = add_product()
             inventory.append(newOrder)
             print("Here are the following new orders that have yet to be saved to the database:")
-            print(inventory)
+            for item in inventory:
+                print(f"ProductID: {item['ProductID']}, Name: {item['Name']}, Price: {item['Price']}, Stock: {item['Stock']}\n")
         elif choice == "3":
             update_stock()
         elif choice == "4":
