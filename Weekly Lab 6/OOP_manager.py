@@ -69,7 +69,21 @@ class Inventory:
 
 
 def load_inventory():
-    return
+    """Load inventory from a JSON file."""
+    inventory = Inventory()
+    if os.path.exists("inventory.json"):
+        with open("inventory.json", "r") as file:
+            data = json.load(file)
+            for item in data:
+                product = Product(
+                    item["ProductID"],
+                    item["Name"],
+                    item["Price"],
+                    item["Stock"],
+                )
+                inventory.add_product(product)
+    return inventory
+    
 
 
 def main_menu(inventory):
