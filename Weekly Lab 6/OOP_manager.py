@@ -71,6 +71,13 @@ class Inventory:
 def load_inventory():
     """Load inventory from a JSON file."""
     inventory = Inventory()
+
+    if not os.path.exists("inventory.json"):
+        print("inventory.json file does not exist. Creating a new file.")
+        with open("inventory.json", "w", encoding="utf-8") as file:
+            json.dump([], file)
+            return inventory
+
     if os.path.exists("inventory.json"):
         with open("inventory.json", "r") as file:
             data = json.load(file)
