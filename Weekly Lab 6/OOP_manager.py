@@ -23,30 +23,49 @@ class Product:
         )
 
 class Inventory:
-    
+
     def __init__(self):
         self.__products = []
 
 
 
 def load_inventory():
-     if not os.path.exists("inventory.json"):
-         print("inventory.json file does not exist. Creating a new file.")
-         with open("inventory.json", "w", encoding="utf-8") as file:
-             json.dump([], file)
-         return
-     else:
-         with open("inventory.json", "r", encoding="utf-8") as file:
-             try:
-                 inventory = json.load(file)
-                 if not inventory:
-                     print("inventory.json is empty. No products to load.")
-                     return(inventory)
-                 else:
-                     print("Inventory.json found")
-                     print("Inventory loaded successfully.")
-                     return(inventory)
-             except json.JSONDecodeError:
-                 print("Error decoding JSON from inventory.json. The file may be corrupted.")
-                 inventory = []
-                 return(inventory)
+    return
+
+
+def main_menu(inventory):
+    unsaved_changes = False
+
+    while True:
+        print("\nMain Menu:")
+        print("1. Add Product")
+        print("2. Search Product")
+        print("3. Display All Products")
+        print("4. Update Stock")
+        print("5. Save Inventory")
+        print("6. Exit")
+
+        choice = input("Enter your choice (1-6): ").strip()
+
+        if choice == "1":
+            return
+        elif choice == "2":
+            return
+        elif choice == "3":
+            return
+        elif choice == "4":
+            return
+        elif choice == "5":
+            return
+        elif choice == "6":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 6.")
+
+
+print("==========================")
+print("INVENTORY MANAGEMENT SYSTEM")
+print("==========================")
+inventory = load_inventory()
+main_menu(inventory)
