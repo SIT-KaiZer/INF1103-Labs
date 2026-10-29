@@ -46,7 +46,7 @@ class Inventory:
             if product.product_id.upper() == product_id:
                 if show_message:
                     print("Product found:")
-                    Product.display_information()
+                    product.display_information()
                 return product
 
         if show_message:
@@ -62,11 +62,70 @@ class Inventory:
             print("Inventory is empty.")
         else:
             for product in self.__products:
-                Product.display_information(product)
+                product.display_information()
 
         print("-" * 60)
 
+    def get_all_products(self):
+        return self.__products
 
+def add_product(inventory):
+    print("\nAdd a new product")
+    product_id = generate_product_id(inventory)
+    name = get_valid_name()
+    price = get_valid_price()
+    stock = get_valid_stock()
+
+    product = Product(product_id, name, price, stock)
+
+    if inventory.add_product(product):
+        print(f"Product {product_id} added successfully.")
+        product.display_information()
+
+def generate_product_id(inventory):
+    highest_number = 0
+    for product in inventory.get_all_products():
+        product_id = product.product_id
+        if product_id.startswith("P") and product_id[1:].isdigit():
+            highest_number = max(highest_number, int(product_id[1:]))
+        productID = "P" + str(highest_number + 1).zfill(3)
+    return productID
+
+def get_valid_name():
+    while True:
+        newProductName = input("Product Name:")
+        if newProductName is None:
+            print("Invalid input. Please enter a valid product name.")
+            continue
+        elif not newProductName.replace(" ","").isalpha():
+            print("Invalid input. Please enter a valid product name.")
+            continue
+        else:
+            return newProductName
+
+def get_valid_price():
+    while True:
+        newPrice = input("Price:")
+        if newPrice is None:
+            print("Invalid input. Please enter a valid price.")
+            continue
+        elif not newPrice.replace(".","").isdigit():
+            print("Invalid input. Price must be a number. Please enter a valid price")
+            continue
+        else:
+            return float(newPrice)
+
+def get_valid_stock():
+    while True:
+        newStockQuantity = input("Stock:")
+        if newStockQuantity is None:
+                print("Invalid input. Please enter a valid Stock.")
+                continue
+        elif not newStockQuantity.isdigit():
+            print("Invalid input. Stock quantity must be a number. Please enter a valid stock quantity")
+            continue
+        else:
+            return int(newStockQuantity)
 
 def load_inventory():
     """Load inventory from a JSON file."""
@@ -119,7 +178,7 @@ def main_menu(inventory):
 
         if choice == "1":
             unsaved_changes = True
-            return
+            add_product(inventory)
         elif choice == "2":
             product_id = input("Enter Product ID to search: ").strip()
             inventory.search_product(product_id)
