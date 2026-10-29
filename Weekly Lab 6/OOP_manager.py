@@ -27,6 +27,17 @@ class Inventory:
     def __init__(self):
         self.__products = []
 
+    def add_product(self, product: Product):
+        if not isinstance(product, Product):
+            raise TypeError("Only Product objects can be added to inventory.")
+
+        if self.search_product(product.product_id, show_message=False) is not None:
+            print("A product with this ID already exists.")
+            return False
+
+        self.__products.append(product)
+        return True
+
 
 
 def load_inventory():
