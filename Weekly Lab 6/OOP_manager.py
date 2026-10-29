@@ -8,6 +8,22 @@ class Product:
         self.__price = float(price)
         self.__stock = int(stock)
 
+    @property
+    def product_id(self):
+        return self.__product_id
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def price(self):
+        return self.__price
+
+    @property
+    def stock(self):
+        return self.__stock    
+
     def update_stock(self, quantity: int):
             """Set the product's stock to a new non-negative quantity."""
             if not isinstance(quantity, int) or quantity < 0:
@@ -21,6 +37,15 @@ class Product:
             f"Price: {self.__price:.2f}, "
             f"Stock: {self.__stock}"
         )
+
+    def to_dict(self):
+        """Convert this object to a dictionary for JSON storage."""
+        return {
+            "ProductID": self.__product_id,
+            "Name": self.__name,
+            "Price": self.__price,
+            "Stock": self.__stock,
+        }
 
 class Inventory:
 
@@ -84,6 +109,9 @@ class Inventory:
         product.update_stock(new_stock)
         print("Stock updated successfully!")
         return True
+
+    def to_list(self):
+        return [product.to_dict() for product in self.__products]
 
 def add_product(inventory):
     print("\nAdd a new product")
@@ -215,7 +243,6 @@ def main_menu(inventory):
         
             if inventory.update_stock(product_id, new_stock):
                 unsaved_changes = True
-            return
         elif choice == "5":
             if save_inventory(inventory):
                 unsaved_changes = False

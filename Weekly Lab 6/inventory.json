@@ -1,5 +1,26 @@
 [
-{"ProductID": "P001", "Name": "IPad", "Price": 1500.0, "Stock": 40},
-{"ProductID": "P002", "Name": "IPhone", "Price": 1000.0, "Stock": 30},
-{"ProductID": "P003", "Name": "Laptop", "Price": 2000.0, "Stock": 20}
+    {
+        "ProductID": "P001",
+        "Name": "IPad",
+        "Price": 1500.0,
+        "Stock": 40
+    },
+    {
+        "ProductID": "P002",
+        "Name": "IPhone",
+        "Price": 1000.0,
+        "Stock": 30
+    },
+    {
+        "ProductID": "P003",
+        "Name": "Laptop",
+        "Price": 2000.0,
+        "Stock": 20
+    },
+    {
+        "ProductID": "P004",
+        "Name": "Mouse",
+        "Price": 50.0,
+        "Stock": 30
+    }
 ]
