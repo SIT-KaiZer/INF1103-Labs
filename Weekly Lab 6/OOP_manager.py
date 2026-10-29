@@ -90,7 +90,17 @@ def load_inventory():
                 )
                 inventory.add_product(product)
     return inventory
-    
+
+def save_inventory(inventory):
+    """Save Product objects to inventory.json as a JSON list."""
+    try:
+        with open("inventory.json", "w", encoding="utf-8") as file:
+            json.dump(inventory.to_list(), file, indent=4)
+        print("Inventory has been saved!")
+        return True
+    except OSError as error:
+        print(f"Could not save inventory.json: {error}")
+        return False
 
 
 def main_menu(inventory):
