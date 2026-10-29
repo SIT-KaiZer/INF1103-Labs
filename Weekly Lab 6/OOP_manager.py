@@ -38,6 +38,34 @@ class Inventory:
         self.__products.append(product)
         return True
 
+    def search_product(self, product_id: str, show_message=True):
+        """Return the matching Product, or None if it cannot be found."""
+        product_id = product_id.strip().upper()
+
+        for product in self.__products:
+            if product.product_id.upper() == product_id:
+                if show_message:
+                    print("Product found:")
+                    Product.display_information()
+                return product
+
+        if show_message:
+            print("Product not found.")
+            print("Returning to Main Menu.")
+        return None
+
+    def display_all(self):
+        print("\nCurrent Inventory:")
+        print("-" * 60)
+
+        if not self.__products:
+            print("Inventory is empty.")
+        else:
+            for product in self.__products:
+                Product.display_information(product)
+
+        print("-" * 60)
+
 
 
 def load_inventory():
@@ -61,9 +89,10 @@ def main_menu(inventory):
         if choice == "1":
             return
         elif choice == "2":
-            return
+            product_id = input("Enter Product ID to search: ").strip()
+            inventory.search_product(product_id)
         elif choice == "3":
-            return
+            inventory.display_all()
         elif choice == "4":
             return
         elif choice == "5":
