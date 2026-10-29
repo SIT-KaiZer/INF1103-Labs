@@ -69,6 +69,22 @@ class Inventory:
     def get_all_products(self):
         return self.__products
 
+    def update_stock(self, product_id: str, new_stock: int):
+        product = self.search_product(product_id, show_message=False)
+
+        if product is None:
+            print("Product not found.")
+            print("Returning to Main Menu.")
+            return False
+
+        if new_stock == product.stock:
+            print("Invalid input. New stock cannot be the same as the previous stock.")
+            return False
+
+        product.update_stock(new_stock)
+        print("Stock updated successfully!")
+        return True
+
 def add_product(inventory):
     print("\nAdd a new product")
     product_id = generate_product_id(inventory)
@@ -177,15 +193,28 @@ def main_menu(inventory):
         choice = input("Enter your choice (1-6): ").strip()
 
         if choice == "1":
-            unsaved_changes = True
             add_product(inventory)
+            unsaved_changes = True
         elif choice == "2":
             product_id = input("Enter Product ID to search: ").strip()
             inventory.search_product(product_id)
         elif choice == "3":
             inventory.display_all()
         elif choice == "4":
-            unsaved_changes = True
+            product_id = input("Enter Product ID you wish to update: ").strip()
+            product = inventory.search_product(product_id, show_message=False)
+
+            if product is None:
+                print("Product not found.")
+                print("Returning to Main Menu.")
+                continue
+
+            print(f"Name: {product.name}")
+            print(f"Current Stock: {product.stock}")
+            new_stock = get_valid_stock("Please enter new stock value: ")
+        
+            if inventory.update_stock(product_id, new_stock):
+                unsaved_changes = True
             return
         elif choice == "5":
             if save_inventory(inventory):
