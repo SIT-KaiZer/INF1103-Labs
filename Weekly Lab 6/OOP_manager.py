@@ -118,6 +118,7 @@ def main_menu(inventory):
         choice = input("Enter your choice (1-6): ").strip()
 
         if choice == "1":
+            unsaved_changes = True
             return
         elif choice == "2":
             product_id = input("Enter Product ID to search: ").strip()
@@ -125,10 +126,18 @@ def main_menu(inventory):
         elif choice == "3":
             inventory.display_all()
         elif choice == "4":
+            unsaved_changes = True
             return
         elif choice == "5":
-            return
+            if save_inventory(inventory):
+                unsaved_changes = False
         elif choice == "6":
+            if unsaved_changes:
+                    print("saving changes before exiting....")
+                    if save_inventory(inventory):
+                        print("Inventory saved successfully.")
+                    else:
+                        print("Failed to save inventory.")
             print("Exiting the program.")
             break
         else:
