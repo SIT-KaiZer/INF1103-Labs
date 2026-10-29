@@ -1,3 +1,5 @@
+import os
+import json
 class Product:
 
     def __init__(self, product_id: str, name: str, price: float, stock: int):
@@ -19,3 +21,32 @@ class Product:
             f"Price: {self.__price:.2f}, "
             f"Stock: {self.__stock}"
         )
+
+class Inventory:
+    
+    def __init__(self):
+        self.__products = []
+
+
+
+def load_inventory():
+     if not os.path.exists("inventory.json"):
+         print("inventory.json file does not exist. Creating a new file.")
+         with open("inventory.json", "w", encoding="utf-8") as file:
+             json.dump([], file)
+         return
+     else:
+         with open("inventory.json", "r", encoding="utf-8") as file:
+             try:
+                 inventory = json.load(file)
+                 if not inventory:
+                     print("inventory.json is empty. No products to load.")
+                     return(inventory)
+                 else:
+                     print("Inventory.json found")
+                     print("Inventory loaded successfully.")
+                     return(inventory)
+             except json.JSONDecodeError:
+                 print("Error decoding JSON from inventory.json. The file may be corrupted.")
+                 inventory = []
+                 return(inventory)
