@@ -22,5 +22,17 @@
         "Name": "Mouse",
         "Price": 50.0,
         "Stock": 30
+    },
+    {
+        "ProductID": "P005",
+        "Name": "Mouse",
+        "Price": 30.0,
+        "Stock": 40
+    },
+    {
+        "ProductID": "P006",
+        "Name": "Mouse Pad",
+        "Price": 10.0,
+        "Stock": 50
     }
 ]
