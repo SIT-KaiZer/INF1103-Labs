@@ -10,12 +10,16 @@ def add_product(inventory):
     name = get_valid_name()
     price = get_valid_price()
     stock = get_valid_stock()
+    productType = get_valid_product_type()
 
     product = Product(product_id, name, price, stock)
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
         product.display_information()
+
+
+
 
 def generate_product_id(inventory):
     highest_number = 0
@@ -61,6 +65,15 @@ def get_valid_stock():
             continue
         else:
             return int(newStockQuantity)
+
+def get_valid_product_type():
+    while True:
+        productType = input("Product Type (Physical/Digital):").strip().lower()
+        if productType not in ["physical", "digital"]:
+            print("Invalid input. Please enter 'Physical' or 'Digital'.")
+            continue
+        else:
+            return productType
 
 def load_inventory():
     """Load inventory from a JSON file."""
