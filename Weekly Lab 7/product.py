@@ -1,4 +1,6 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class Product(ABC):
 
     def __init__(self, product_id: str, name: str, price: float, stock: int):
         self.product_id = str(product_id)
@@ -12,7 +14,7 @@ class Product:
             if not isinstance(quantity, int) or quantity < 0:
                 raise ValueError("Stock quantity must be a non-negative integer.")
             self.__stock = quantity
-
+    
     def display_information(self):
         print(
             f"ProductID: {self.product_id}, "
@@ -29,6 +31,10 @@ class Product:
             "Price": self.price,
             "Stock": self.stock,
         }
+    @abstractmethod
+    def get_fulfilment_info(self):
+        """Return a string with fulfilment information specific to the product type."""
+        pass
 
 class PhysicalProduct(Product):
     def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
@@ -37,6 +43,8 @@ class PhysicalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"Weight: {self.weight:.2f} kg")
+    def get_fulfilment_info(self):
+        return f"{self.name} (ID: {self.product_id}) weighing {self.weight:.2f} kg has to to be shipped to the customer as it is a physical product."
 
 class DigitalProduct(Product):
     def __init__(self, product_id: str, name: str, price: float, stock: int, download_size: float):
@@ -45,3 +53,5 @@ class DigitalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"Download Size: {self.download_size:.2f} MB")
+    def get_fulfilment_info(self):
+        return f"{self.name} (ID: {self.product_id}) ({self.download_size:.2f} MB) has to be downloaded as it is a digital product."
