@@ -8,8 +8,10 @@ class PhysicalProduct(Product, CanBeShipped):
     def display_information(self):
         super().display_information()
         print(f"Weight: {self.weight:.2f} kg")
+        
     def get_fulfilment_info(self):
         return f"{self.name} (ID: {self.product_id}) weighing {self.weight:.2f} kg has to to be shipped to the customer as it is a physical product."
+    
     def calculate_shipping_cost(self):
         """Calculate shipping cost based on weight."""
         base_cost = 5.00  # Base shipping cost

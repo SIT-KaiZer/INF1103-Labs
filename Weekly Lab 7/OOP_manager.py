@@ -23,6 +23,11 @@ def add_product(inventory):
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
         product.display_information()
+        product.get_fulfilment_info()
+        if isinstance(product, PhysicalProduct):
+            shipping_cost = product.calculate_shipping_cost()
+            print(f"Shipping Cost: ${shipping_cost:.2f}")
+
 
 
 def generate_product_id(inventory):
