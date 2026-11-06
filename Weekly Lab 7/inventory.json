@@ -1,3 +1,18 @@
 [
-
+    {
+        "ProductID": "P001",
+        "Name": "IPod",
+        "Price": 100.0,
+        "Stock": 50,
+        "ProductType": "physical",
+        "Weight": 0.8
+    },
+    {
+        "ProductID": "P002",
+        "Name": "Steam",
+        "Price": 0.0,
+        "Stock": 0,
+        "ProductType": "digital",
+        "DownloadSize": 1000.0
+    }
 ]

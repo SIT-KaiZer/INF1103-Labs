@@ -1,9 +1,9 @@
 from product import Product
-from product import CanBeShipped
+from canBeShipped import CanBeShipped
 
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, product_type: str, weight: float):
+        super().__init__(product_id, name, price, stock, product_type)
         self.weight = float(weight)
     def display_information(self):
         super().display_information()
@@ -17,3 +17,9 @@ class PhysicalProduct(Product, CanBeShipped):
         base_cost = 5.00  # Base shipping cost
         cost_per_kg = 2.00  # Cost per kilogram
         return base_cost + (cost_per_kg * self.weight)
+
+    def to_dict(self):
+        data = super().to_dict()
+        data["Weight"] = self.weight
+        return data
+    

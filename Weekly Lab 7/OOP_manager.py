@@ -15,15 +15,15 @@ def add_product(inventory):
     productType = get_valid_product_type()
     if productType == "physical":
         weight = get_valid_weight()
-        product = PhysicalProduct(product_id, name, price, stock, weight)
+        product = PhysicalProduct(product_id, name, price, stock, productType, weight)
     elif productType == "digital":
         download_size = get_valid_download_size()
-        product = DigitalProduct(product_id, name, price, stock, download_size)
+        product = DigitalProduct(product_id, name, price, stock, productType, download_size)
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
         product.display_information()
-        product.get_fulfilment_info()
+        print(product.get_fulfilment_info())
         if isinstance(product, PhysicalProduct):
             shipping_cost = product.calculate_shipping_cost()
             print(f"Shipping Cost: ${shipping_cost:.2f}")
@@ -32,6 +32,7 @@ def add_product(inventory):
 
 def generate_product_id(inventory):
     highest_number = 0
+    productID = "P" + str(highest_number + 1).zfill(3)
     for product in inventory.get_all_products():
         product_id = product.product_id
         if product_id.startswith("P") and product_id[1:].isdigit():
@@ -122,12 +123,26 @@ def load_inventory():
         with open("inventory.json", "r") as file:
             data = json.load(file)
             for item in data:
-                product = Product(
-                    item["ProductID"],
-                    item["Name"],
-                    item["Price"],
-                    item["Stock"],
-                )
+                if item["ProductType"] == "physical":
+                    product = PhysicalProduct(
+                        item["ProductID"],
+                        item["Name"],
+                        item["Price"],
+                        item["Stock"],
+                        item["ProductType"],
+                        item["Weight"]
+                    )
+
+                elif item["ProductType"] == "digital":
+                    product = DigitalProduct(
+                        item["ProductID"],
+                        item["Name"],
+                        item["Price"],
+                        item["Stock"],
+                        item["ProductType"],
+                        item["DownloadSize"]
+                    )
+
                 inventory.add_product(product)
     return inventory
 
@@ -176,7 +191,7 @@ def main_menu(inventory):
 
             print(f"Name: {product.name}")
             print(f"Current Stock: {product.stock}")
-            new_stock = get_valid_stock("Please enter new stock value: ")
+            new_stock = get_valid_stock()
         
             if inventory.update_stock(product_id, new_stock):
                 unsaved_changes = True
