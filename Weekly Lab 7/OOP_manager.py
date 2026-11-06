@@ -3,6 +3,8 @@ import json
 
 from inventory import Inventory
 from product import Product
+from physicalProduct import PhysicalProduct
+from digitalProduct import DigitalProduct
 
 def add_product(inventory):
     print("\nAdd a new product")
@@ -11,14 +13,16 @@ def add_product(inventory):
     price = get_valid_price()
     stock = get_valid_stock()
     productType = get_valid_product_type()
-
-    product = Product(product_id, name, price, stock)
+    if productType == "physical":
+        weight = get_valid_weight()
+        product = PhysicalProduct(product_id, name, price, stock, weight)
+    elif productType == "digital":
+        download_size = get_valid_download_size()
+        product = DigitalProduct(product_id, name, price, stock, download_size)
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
         product.display_information()
-
-
 
 
 def generate_product_id(inventory):
@@ -74,6 +78,30 @@ def get_valid_product_type():
             continue
         else:
             return productType
+
+def get_valid_weight():
+    while True:
+        weight = input("Weight (in kg):")
+        if weight is None:
+            print("Invalid input. Please enter a valid weight.")
+            continue
+        elif not weight.replace(".","").isdigit():
+            print("Invalid input. Weight must be a number. Please enter a valid weight.")
+            continue
+        else:
+            return float(weight)
+
+def get_valid_download_size():
+    while True:
+        download_size = input("Download Size (in MB):")
+        if download_size is None:
+            print("Invalid input. Please enter a valid download size.")
+            continue
+        elif not download_size.replace(".","").isdigit():
+            print("Invalid input. Download size must be a number. Please enter a valid download size.")
+            continue
+        else:
+            return float(download_size)
 
 def load_inventory():
     """Load inventory from a JSON file."""
