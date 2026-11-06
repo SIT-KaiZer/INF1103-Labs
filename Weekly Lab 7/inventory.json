@@ -14,5 +14,13 @@
         "Stock": 0,
         "ProductType": "digital",
         "DownloadSize": 1000.0
+    },
+    {
+        "ProductID": "P003",
+        "Name": "IPad",
+        "Price": 999.0,
+        "Stock": 45,
+        "ProductType": "physical",
+        "Weight": 1.2
     }
 ]
