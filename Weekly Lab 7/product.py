@@ -29,3 +29,8 @@ class Product:
             "Price": self.price,
             "Stock": self.stock,
         }
+
+class PhysicalProduct(Product):
+    def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
+        super().__init__(product_id, name, price, stock)
+        self.weight = float(weight)
