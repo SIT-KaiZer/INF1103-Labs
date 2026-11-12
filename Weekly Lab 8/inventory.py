@@ -1,63 +1,58 @@
-
 from product import Product
 
 class Inventory:
 
     def __init__(self):
-        # Collection stores Product objects
-        self.products: list[Product] = []
+        self.__products = []
 
-    def add_product(self, product: Product) -> bool:
+    def add_product(self, product: Product):
         if not isinstance(product, Product):
             raise TypeError("Only Product objects can be added to inventory.")
 
-        if self.find_product(product.product_id) is not None:
+        if self.search_product(product.product_id, show_message=False) is not None:
             print("A product with this ID already exists.")
             return False
 
-        self.products.append(product)
+        self.__products.append(product)
         return True
 
-    def remove_product(self, product_id: str) -> bool:
-        product = self.find_product(product_id)
-
-        if product is None:
-            print("Product not found.")
-            return False
-
-        self.products.remove(product)
-        print(f"Product {product_id} removed successfully.")
-        return True
-
-    def find_product(self, product_id: str) -> Product | None:
+    def search_product(self, product_id: str, show_message=True):
+        """Return the matching Product, or None if it cannot be found."""
         product_id = product_id.strip().upper()
 
-        for product in self.products:
+        for product in self.__products:
             if product.product_id.upper() == product_id:
+                if show_message:
+                    print("Product found:")
+                    product.display_information()
                 return product
 
+        if show_message:
+            print("Product not found.")
+            print("Returning to Main Menu.")
         return None
 
     def display_all(self):
         print("\nCurrent Inventory:")
         print("-" * 60)
 
-        if not self.products:
+        if not self.__products:
             print("Inventory is empty.")
         else:
-            for product in self.products:
+            for product in self.__products:
                 product.display_information()
 
         print("-" * 60)
 
-    def get_all_products(self) -> list[Product]:
-        return self.products
+    def get_all_products(self):
+        return self.__products
 
-    def update_stock(self, product_id: str, new_stock: int) -> bool:
-        product = self.find_product(product_id)
+    def update_stock(self, product_id: str, new_stock: int):
+        product = self.search_product(product_id, show_message=False)
 
         if product is None:
             print("Product not found.")
+            print("Returning to Main Menu.")
             return False
 
         if new_stock == product.stock:
@@ -68,5 +63,5 @@ class Inventory:
         print("Stock updated successfully!")
         return True
 
-    def to_list(self) -> list[dict]:
-        return [product.to_dict() for product in self.products]
+    def to_list(self):
+        return [product.to_dict() for product in self.__products]
