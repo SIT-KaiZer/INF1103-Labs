@@ -24,7 +24,11 @@ class Product(ABC):
             f"ProductID: {self.product_id}, "
             f"Name: {self.name}, "
             f"Price: {self.price:.2f}, "
-            f"Stock: {self.stock}"
+            f"Stock: {self.stock}, "
+            f"ProductType: {self.product_type}, "
+            f"SupplierID: {self.supplier.supplier_id}, "
+            f"supplierName: {self.supplier.name}, "
+            f"ContactEmail: {self.supplier.contact_email}"
         )
 
     def to_dict(self):
