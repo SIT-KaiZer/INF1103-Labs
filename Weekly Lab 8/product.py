@@ -1,17 +1,16 @@
 from abc import ABC, abstractmethod
-from supplier import Supplier
+from supplier import Suppliers
 
 class Product(ABC):
 
 
-    def __init__(self, product_id, name, price, stock, product_type, supplier : Supplier):
+    def __init__(self, product_id, name, price, stock, product_type, supplier : Suppliers):
         self.product_id = str(product_id)
         self.name = str(name)
         self.price = float(price)
         self.stock = int(stock)
         self.product_type = str(product_type)
-        self.supplier: Supplier = supplier
-        
+        self.supplier: Suppliers = supplier
 
 
     def update_stock(self, quantity: int):
