@@ -113,14 +113,19 @@ def get_valid_download_size():
             continue
         else:
             return float(download_size)
-        
+def generate_supplier_id():
+    highest_number = 0
+    supplierID = "S" + str(highest_number + 1).zfill(3)
+    for supplier in suppliers:
+        supplier_id = supplier.supplier_id
+        if supplier_id.startswith("S") and supplier_id[1:].isdigit():
+            highest_number = max(highest_number, int(supplier_id[1:]))
+        supplierID = "S" + str(highest_number + 1).zfill(3)
+    return supplierID
+
 def get_valid_supplier_info():
     while True:
-        supplier_id = input("Supplier ID:").strip()
-        if not supplier_id:
-            print("Invalid input. Please enter a valid Supplier ID.")
-            continue
-
+        supplier_id = generate_supplier_id()
         name = input("Supplier Name:").strip()
         if not name:
             print("Invalid input. Please enter a valid Supplier Name.")
