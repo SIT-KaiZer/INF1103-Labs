@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY OOP_manager.py .
+COPY inventory.py .
+COPY product.py .
+COPY inventory.json .
+COPY physicalProduct.py .
+COPY digitalProduct.py .
+COPY canBeShipped.py .
+
+CMD ["python", "OOP_manager.py"]
