@@ -16,7 +16,7 @@ def add_product(inventory):
     price = get_valid_price()
     stock = get_valid_stock()
     productType = get_valid_product_type()
-    supplier = get_valid_supplier_info()
+    supplier = choose_supplier()
     if productType == "physical":
         weight = get_valid_weight()
         product = PhysicalProduct(product_id, name, price, stock, productType, supplier, weight)
@@ -113,6 +113,25 @@ def get_valid_download_size():
             continue
         else:
             return float(download_size)
+
+def choose_supplier():
+    if not suppliers:
+        print("No suppliers available. Please add a supplier first.")
+        return get_valid_supplier_info()
+
+    print("\nAvailable Suppliers:")
+    for index, supplier in enumerate(suppliers, start=1):
+        print(f"{index}. {supplier.name} (ID: {supplier.supplier_id})")
+
+    while True:
+        choice = input("Choose a supplier by number (or type 'new' to add a new supplier): ").strip()
+        if choice.lower() == 'new':
+            return get_valid_supplier_info()
+        elif choice.isdigit() and 1 <= int(choice) <= len(suppliers):
+            return suppliers[int(choice) - 1]
+        else:
+            print("Invalid choice. Please enter a valid number or 'new'.")
+
 def generate_supplier_id():
     highest_number = 0
     supplierID = "S" + str(highest_number + 1).zfill(3)

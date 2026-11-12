@@ -1,4 +1,3 @@
-
 {
     "Products": [
         {
@@ -7,8 +6,7 @@
             "Price": 100.0,
             "Stock": 50,
             "ProductType": "physical",
-            "Weight": 0.8,
-            "SupplierID": "S001"
+            "Weight": 0.8
         },
         {
             "ProductID": "P002",
@@ -16,8 +14,15 @@
             "Price": 0.0,
             "Stock": 0,
             "ProductType": "digital",
-            "DownloadSize": 1000.0,
-            "SupplierID": "S002"
+            "DownloadSize": 1000.0
+        },
+        {
+            "ProductID": "P003",
+            "Name": "IPad",
+            "Price": 1000.0,
+            "Stock": 50,
+            "ProductType": "physical",
+            "Weight": 1.2
         }
     ],
     "Suppliers": [
