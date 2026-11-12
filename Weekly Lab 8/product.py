@@ -33,7 +33,8 @@ class Product(ABC):
             "Name": self.name,
             "Price": self.price,
             "Stock": self.stock,
-            "ProductType": self.product_type
+            "ProductType": self.product_type,
+            "SupplierID": self.supplier.supplier_id
         }
 
     def display_supplier_information(self):

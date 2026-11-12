@@ -6,6 +6,7 @@
             "Price": 100.0,
             "Stock": 50,
             "ProductType": "physical",
+            "SupplierID": "S001",
             "Weight": 0.8
         },
         {
@@ -14,6 +15,7 @@
             "Price": 0.0,
             "Stock": 0,
             "ProductType": "digital",
+            "SupplierID": "S002",
             "DownloadSize": 1000.0
         },
         {
@@ -22,19 +24,43 @@
             "Price": 1000.0,
             "Stock": 50,
             "ProductType": "physical",
+            "SupplierID": "S001",
             "Weight": 1.2
+        },
+        {
+            "ProductID": "P004",
+            "Name": "AirPods",
+            "Price": 200.0,
+            "Stock": 40,
+            "ProductType": "physical",
+            "SupplierID": "S001",
+            "Weight": 0.5
+        },
+        {
+            "ProductID": "P005",
+            "Name": "Asus Expertbook",
+            "Price": 1800.0,
+            "Stock": 80,
+            "ProductType": "physical",
+            "SupplierID": "S003",
+            "Weight": 1.1
         }
     ],
     "Suppliers": [
         {
             "SupplierID": "S001",
-            "Name": "Dell",
-            "ContactEmail": "support@dell.com"
+            "Name": "Apple",
+            "ContactEmail": "support@apple.com"
         },
         {
             "SupplierID": "S002",
             "Name": "Steam",
             "ContactEmail": "support@steam.com"
+        },
+        {
+            "SupplierID": "S003",
+            "Name": "Asus",
+            "ContactEmail": "support@asus.com"
         }
     ]
 }

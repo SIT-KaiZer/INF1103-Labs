@@ -29,9 +29,14 @@ def add_product(inventory):
         product.display_information()
         print(product.get_fulfilment_info())
         product.display_supplier_information()
+
         if isinstance(product, PhysicalProduct):
             shipping_cost = product.calculate_shipping_cost()
             print(f"Shipping Cost: ${shipping_cost:.2f}")
+
+        return True
+
+    return False
 
 
 
@@ -155,7 +160,9 @@ def get_valid_supplier_info():
             print("Invalid input. Please enter a valid email address.")
             continue
 
-        return Suppliers(supplier_id, name, contact_email)
+        supplier = Suppliers(supplier_id, name, contact_email)
+        suppliers.append(supplier)
+        return supplier
 
 
 def load_inventory():
@@ -268,8 +275,8 @@ def main_menu(inventory):
         choice = input("Enter your choice (1-6): ").strip()
 
         if choice == "1":
-            add_product(inventory)
-            unsaved_changes = True
+            if add_product(inventory):
+                unsaved_changes = True
         elif choice == "2":
             product_id = input("Enter Product ID to search: ").strip()
             inventory.search_product(product_id)
