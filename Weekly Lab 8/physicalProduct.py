@@ -1,9 +1,9 @@
 from product import Product
 from canBeShipped import CanBeShipped
-
+from supplier import Supplier
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_id: str, name: str, price: float, stock: int, product_type: str, weight: float):
-        super().__init__(product_id, name, price, stock, product_type)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, product_type: str, supplier: Supplier, weight: float):
+        super().__init__(product_id, name, price, stock, product_type, supplier)
         self.weight = float(weight)
     def display_information(self):
         super().display_information()

@@ -1,15 +1,17 @@
 from abc import ABC, abstractmethod
-
+from supplier import Supplier
 
 class Product(ABC):
 
 
-    def __init__(self, product_id, name, price, stock, product_type):
+    def __init__(self, product_id, name, price, stock, product_type, supplier : Supplier):
         self.product_id = str(product_id)
         self.name = str(name)
         self.price = float(price)
         self.stock = int(stock)
         self.product_type = str(product_type)
+        self.supplier: Supplier = supplier
+        
 
 
     def update_stock(self, quantity: int):
@@ -34,6 +36,11 @@ class Product(ABC):
             "Stock": self.stock,
             "ProductType": self.product_type
         }
+
+    def display_supplier_information(self):
+        print("\nSupplier Information:")
+        self.supplier.display_information()
+    
     @abstractmethod
     def get_fulfilment_info(self):
         """Return a string with fulfilment information specific to the product type."""

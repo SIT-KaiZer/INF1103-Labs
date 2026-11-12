@@ -1,26 +1,35 @@
-[
-    {
-        "ProductID": "P001",
-        "Name": "IPod",
-        "Price": 100.0,
-        "Stock": 50,
-        "ProductType": "physical",
-        "Weight": 0.8
-    },
-    {
-        "ProductID": "P002",
-        "Name": "Steam",
-        "Price": 0.0,
-        "Stock": 0,
-        "ProductType": "digital",
-        "DownloadSize": 1000.0
-    },
-    {
-        "ProductID": "P003",
-        "Name": "IPad",
-        "Price": 999.0,
-        "Stock": 45,
-        "ProductType": "physical",
-        "Weight": 1.2
-    }
-]
+
+{
+    "Products": [
+        {
+            "ProductID": "P001",
+            "Name": "IPod",
+            "Price": 100.0,
+            "Stock": 50,
+            "ProductType": "physical",
+            "Weight": 0.8,
+            "SupplierID": "S001"
+        },
+        {
+            "ProductID": "P002",
+            "Name": "Steam",
+            "Price": 0.0,
+            "Stock": 0,
+            "ProductType": "digital",
+            "DownloadSize": 1000.0,
+            "SupplierID": "S002"
+        }
+    ],
+    "Suppliers": [
+        {
+            "SupplierID": "S001",
+            "Name": "Dell",
+            "ContactEmail": "support@dell.com"
+        },
+        {
+            "SupplierID": "S002",
+            "Name": "Steam",
+            "ContactEmail": "support@steam.com"
+        }
+    ]
+}
