@@ -291,6 +291,10 @@ def main_menu(inventory):
                 print("Product not found.")
                 print("Returning to Main Menu.")
                 continue
+            elif product.product_type == "digital":
+                print("Stock update is not applicable for digital products.")
+                print("Returning to Main Menu.")
+                continue
 
             print(f"Name: {product.name}")
             print(f"Current Stock: {product.stock}")
