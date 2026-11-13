@@ -5,7 +5,7 @@ from inventory import Inventory
 from product import Product
 from physicalProduct import PhysicalProduct
 from digitalProduct import DigitalProduct
-from supplier import Suppliers
+from suppliers import Suppliers
 
 suppliers = []  # List to store Supplier objects
 

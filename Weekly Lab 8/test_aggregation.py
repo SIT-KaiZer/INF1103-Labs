@@ -1,5 +1,5 @@
 from inventory import Inventory
-from supplier import Suppliers
+from suppliers import Suppliers
 from physicalProduct import PhysicalProduct
 
 # Create Supplier

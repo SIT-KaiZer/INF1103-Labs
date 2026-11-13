@@ -1,4 +1,4 @@
-from supplier import Suppliers
+from suppliers import Suppliers
 from physicalProduct import PhysicalProduct
 from digitalProduct import DigitalProduct
 from order import Order

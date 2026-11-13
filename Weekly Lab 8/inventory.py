@@ -38,7 +38,7 @@ class Inventory:
 
         return None
 
-    def search_product(self, product_id: str, show_message=True) -> Product | None:
+    def search_product(self, product_id: str, show_message: bool=True) -> Product | None:
         product = self.find_product(product_id)
 
         if product is not None:
@@ -52,7 +52,7 @@ class Inventory:
 
         return product
 
-    def display_all(self):
+    def display_all(self)-> None:
         print("\nCurrent Inventory:")
         print("-" * 60)
 
@@ -82,5 +82,5 @@ class Inventory:
         print("Stock updated successfully!")
         return True
 
-    def to_list(self) -> list[dict]:
+    def to_list(self) -> list[dict[str, str, float, int, str, float]]:
         return [product.to_dict() for product in self.products]
