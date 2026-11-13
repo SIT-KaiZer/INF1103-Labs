@@ -9,5 +9,10 @@ COPY inventory.json .
 COPY physicalProduct.py .
 COPY digitalProduct.py .
 COPY canBeShipped.py .
+COPY suppliers.py .
+COPY order.py .
+COPY orderLine.py .
+
+
 
 CMD ["python", "OOP_manager.py"]
