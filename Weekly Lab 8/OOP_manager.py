@@ -26,8 +26,9 @@ def add_product(inventory):
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
-        product.display_information()
-        print(product.get_fulfilment_info())
+        inventory.show_product_details(product)
+        # product.display_information()
+        # print(product.get_fulfilment_info())
         product.display_supplier_information()
 
         if isinstance(product, PhysicalProduct):

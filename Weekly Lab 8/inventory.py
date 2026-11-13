@@ -44,7 +44,8 @@ class Inventory:
         if product is not None:
             if show_message:
                 print("Product found:")
-                product.display_information()
+                # product.display_information()
+                self.show_product_details(product)
         else:
             if show_message:
                 print("Product not found.")
@@ -81,6 +82,10 @@ class Inventory:
         product.update_stock(new_stock)
         print("Stock updated successfully!")
         return True
+
+    def show_product_details(self, product: Product) -> None:
+        product.display_information() 
+        print(product.get_fulfilment_info())
 
     def to_list(self) -> list[dict[str, str, float, int, str, float]]:
         return [product.to_dict() for product in self.products]
