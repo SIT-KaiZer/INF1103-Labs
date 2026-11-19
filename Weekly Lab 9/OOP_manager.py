@@ -81,17 +81,9 @@ def get_valid_name():
         else:
             return newProductName
 
-def get_valid_price():
-    while True:
-        newPrice = input("Price:")
-        if newPrice is None:
-            print("Invalid input. Please enter a valid price.")
-            continue
-        elif not newPrice.replace(".","").isdigit():
-            print("Invalid input. Price must be a number. Please enter a valid price")
-            continue
-        else:
-            return float(newPrice)
+def get_valid_price() -> float:
+    return get_positive_float("Price: ")
+    
 
 def get_valid_stock():
     while True:
@@ -114,29 +106,11 @@ def get_valid_product_type():
         else:
             return productType
 
-def get_valid_weight():
-    while True:
-        weight = input("Weight (in kg):")
-        if weight is None:
-            print("Invalid input. Please enter a valid weight.")
-            continue
-        elif not weight.replace(".","").isdigit():
-            print("Invalid input. Weight must be a number. Please enter a valid weight.")
-            continue
-        else:
-            return float(weight)
+def get_valid_weight() -> float:
+    return get_positive_float("Weight (in kg): ")
 
-def get_valid_download_size():
-    while True:
-        download_size = input("Download Size (in MB):")
-        if download_size is None:
-            print("Invalid input. Please enter a valid download size.")
-            continue
-        elif not download_size.replace(".","").isdigit():
-            print("Invalid input. Download size must be a number. Please enter a valid download size.")
-            continue
-        else:
-            return float(download_size)
+def get_valid_download_size() -> float:
+    return get_positive_float("Download Size (in MB): ")
 
 def choose_supplier():
     if not suppliers:
@@ -278,6 +252,16 @@ def save_inventory(inventory):
         print(f"Could not save inventory.json: {error}")
         return False
 
+def get_positive_float(prompt: str) -> float:
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                print("Please enter a number greater than zero.")
+                continue
+            return value
+        except ValueError:
+            print("Please enter a valid number, e.g. 12.50")
 
 def main_menu(inventory):
     unsaved_changes = False
