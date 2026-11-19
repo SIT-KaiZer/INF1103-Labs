@@ -1,5 +1,6 @@
 import os
 import json
+import csv
 
 from inventory import Inventory
 
@@ -262,6 +263,50 @@ def get_positive_float(prompt: str) -> float:
             return value
         except ValueError:
             print("Please enter a valid number, e.g. 12.50")
+
+def load_products(path: str, inventory: Inventory, supplier: Suppliers) -> None:
+    loaded = 0
+
+    try:
+        file = open(path, newline="", encoding="utf-8")
+
+    except FileNotFoundError:
+        print(f"Products file not found: {path}")
+
+    else:
+        with file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                try:
+                    product_type = row["product_type"].strip().lower()
+                    product_id = row["product_id"].strip()
+                    name = row["name"].strip()
+                    price = float(row["price"])
+                    stock_quantity = int(row["stock_quantity"])
+
+                    # Create product through the factory
+                    product = ProductFactory.create(
+                        product_type=product_type,
+                        product_id=product_id,
+                        name=name,
+                        price=price,
+                        stock_quantity=stock_quantity,
+                        supplier=supplier
+                    )
+
+                    if inventory.add_product(product):
+                        loaded += 1
+
+                except ValueError as error:
+                    print(f"Skipping row {row}: {error}")
+                    continue
+
+        print(f"{loaded} products loaded.")
+
+    finally:
+        print("Load attempt finished.")
+
 
 def main_menu(inventory):
     unsaved_changes = False
