@@ -2,10 +2,11 @@ import os
 import json
 
 from inventory import Inventory
-from product import Product
+
 from physicalProduct import PhysicalProduct
 from digitalProduct import DigitalProduct
 from suppliers import Suppliers
+from productFactory import ProductFactory
 
 suppliers = []  # List to store Supplier objects
 
@@ -19,16 +20,14 @@ def add_product(inventory):
     supplier = choose_supplier()
     if productType == "physical":
         weight = get_valid_weight()
-        product = PhysicalProduct(product_id, name, price, stock, productType, supplier, weight)
+        product = ProductFactory.create(product_id, name, price, stock, productType, supplier, weight=weight)
     elif productType == "digital":
         download_size = get_valid_download_size()
-        product = DigitalProduct(product_id, name, price, stock, productType, supplier, download_size)
+        product = ProductFactory.create(product_id, name, price, stock, productType, supplier, download_size=download_size)
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
         inventory.show_product_details(product)
-        # product.display_information()
-        # print(product.get_fulfilment_info())
         product.display_supplier_information()
 
         if isinstance(product, PhysicalProduct):
@@ -211,25 +210,25 @@ def load_inventory():
             continue
 
         if item["ProductType"] == "physical":
-            product = PhysicalProduct(
-                item["ProductID"],
-                item["Name"],
-                item["Price"],
-                item["Stock"],
-                item["ProductType"],
-                supplier,
-                item["Weight"]
+            product = ProductFactory.create(
+                product_id=item["ProductID"],
+                name=item["Name"],
+                price=item["Price"],
+                stock_quantity=item["Stock"],
+                product_type=item["ProductType"],
+                supplier=supplier,
+                weight=item["Weight"]
             )
 
         elif item["ProductType"] == "digital":
-            product = DigitalProduct(
-                item["ProductID"],
-                item["Name"],
-                item["Price"],
-                item["Stock"],
-                item["ProductType"],
-                supplier,
-                item["DownloadSize"]
+            product = ProductFactory.create(
+                product_id=item["ProductID"],
+                name=item["Name"],
+                price=item["Price"],
+                stock_quantity=item["Stock"],
+                product_type=item["ProductType"],
+                supplier=supplier,
+                download_size=item["DownloadSize"]
             )
 
         else:
