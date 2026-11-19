@@ -20,10 +20,29 @@ def add_product(inventory):
     supplier = choose_supplier()
     if productType == "physical":
         weight = get_valid_weight()
-        product = ProductFactory.create(product_id, name, price, stock, productType, supplier, weight=weight)
+
+        product = ProductFactory.create(
+            product_type=productType,
+            product_id=product_id,
+            name=name,
+            price=price,
+            stock_quantity=stock,
+            supplier=supplier,
+            weight=weight
+        )
+
     elif productType == "digital":
         download_size = get_valid_download_size()
-        product = ProductFactory.create(product_id, name, price, stock, productType, supplier, download_size=download_size)
+
+        product = ProductFactory.create(
+            product_type=productType,
+            product_id=product_id,
+            name=name,
+            price=price,
+            stock_quantity=stock,
+            supplier=supplier,
+            download_size=download_size
+        )
 
     if inventory.add_product(product):
         print(f"Product {product_id} added successfully.")
